@@ -1,0 +1,36 @@
+server:
+  port: 6060
+
+spring:
+  application:
+    name: zei-boot
+  datasource:
+    url: jdbc:mysql://182.254.171.28:3306/demo?useUnicode=yes&characterEncoding=utf8
+    username: root
+    password: 654321
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    redis:
+      database: 0
+      host: 182.254.171.28
+      port: 6378
+
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 182.254.171.28:6378
+
+mybatis:
+  configuration:
+    mapper-locations: classpath*:mappers/**/*.xml
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.zei.boot.demo.**.dao: debug
+
+zei:
+  jwt:
+    secret: zei666
+    expire: 259200  #3天
+    header: Authorization
