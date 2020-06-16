@@ -1,6 +1,5 @@
 package com.zei.boot.demo.shiro;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;

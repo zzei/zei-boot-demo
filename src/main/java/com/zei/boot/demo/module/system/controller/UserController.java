@@ -1,8 +1,11 @@
 package com.zei.boot.demo.module.system.controller;
 
+import com.zei.boot.demo.base.PageInfo;
 import com.zei.boot.demo.base.Result;
 import com.zei.boot.demo.constants.HeaderConstant;
+import com.zei.boot.demo.module.system.api.dto.UserDTO;
 import com.zei.boot.demo.module.system.api.dto.UserLoginDTO;
+import com.zei.boot.demo.module.system.api.search.UserSearch;
 import com.zei.boot.demo.module.system.api.vo.UserVO;
 import com.zei.boot.demo.module.system.entity.User;
 import com.zei.boot.demo.module.system.service.IUserService;
@@ -17,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -36,6 +40,55 @@ public class UserController {
 
     @Autowired
     IUserService userService;
+
+
+    @RequiresAuthentication
+    @ApiOperation(value = "查询用户")
+    @PostMapping("/queryUser")
+    public Result<PageInfo<UserVO>> queryUser(@RequestBody UserSearch search) {
+        return Result.succeed(userService.queryUser(search));
+    }
+
+    @RequiresAuthentication
+    @ApiOperation(value = "获取用户")
+    @GetMapping("/getUser/{userId}")
+    public Result<UserVO> getUser(@PathVariable Long userId) {
+        User user = userService.getUserById(userId);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        return Result.succeed(userVO);
+    }
+
+    @RequiresAuthentication
+    @ApiOperation(value = "新增用户")
+    @PostMapping("/addUser")
+    public Result addUser(@Validated @RequestBody UserDTO userDTO) {
+        if (userService.addUser(userDTO)) {
+            return Result.succeed("操作成功");
+        }
+        return Result.failed("操作失败");
+    }
+
+    @RequiresAuthentication
+    @ApiOperation(value = "更新用户")
+    @PostMapping("/updateUser")
+    public Result updateUser(@Validated @RequestBody UserDTO userDTO) {
+        if (userService.updateUser(userDTO)) {
+            return Result.succeed("操作成功");
+        }
+        return Result.failed("操作失败");
+    }
+
+    @RequiresAuthentication
+    @ApiOperation(value = "删除用户")
+    @GetMapping("removeUser/{userId}")
+    public Result removeUser(@PathVariable Long userId) {
+        if (userService.removeUser(userId)) {
+            return Result.succeed("操作成功");
+        }
+        return Result.failed("操作失败");
+    }
+
 
     @ApiOperation(value = "登录")
     @PostMapping("/login")

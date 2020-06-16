@@ -22,7 +22,7 @@ shiro-redis:
 
 mybatis:
   configuration:
-    mapper-locations: classpath*:mappers/**/*.xml
+    mapper-locations: classpath*:/mapper/*Mapper.xml
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 logging:

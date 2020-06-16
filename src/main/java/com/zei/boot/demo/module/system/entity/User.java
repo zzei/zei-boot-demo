@@ -38,30 +38,5 @@ public class User extends BaseEntity implements Serializable {
 	 */
 	@TableField("avatar")
 	private String avatar;
-	/**
-	 * 创建时间
-	 */
-	@TableField("create_time")
-	private Date createTime;
-	/**
-	 * 创建人
-	 */
-	@TableField("create_by")
-	private Long createBy;
-	/**
-	 * 更新时间
-	 */
-	@TableField("update_time")
-	private Date updateTime;
-	/**
-	 * 更新人
-	 */
-	@TableField("update_by")
-	private Long updateBy;
-	/**
-	 * 有效（1：有效 0：无效）
-	 */
-	@TableField("state")
-	private Long state;
 
 }

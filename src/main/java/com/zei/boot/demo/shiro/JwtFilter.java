@@ -54,7 +54,7 @@ public class JwtFilter extends AuthenticatingFilter {
         } else {
             Claims claims = jwtUtils.getClaimsByToken(token);
             if (claims == null || jwtUtils.isTokenExpire(claims.getExpiration())) {
-                throw new ExpiredCredentialsException("停留太久, 请重新登录");
+                throw new ExpiredCredentialsException("请登录");
             }
             return executeLogin(servletRequest, servletResponse);
         }

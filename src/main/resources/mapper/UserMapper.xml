@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zei.boot.demo.module.system.dao.UserMapper">
+
+    <resultMap id="userVo" type="com.zei.boot.demo.module.system.api.vo.UserVO"></resultMap>
+
+    <select id="queryUser" resultMap="userVo"
+            parameterType="com.zei.boot.demo.module.system.api.search.UserSearch">
+        SELECT
+        u.id,
+        u.account,
+        u.username,
+        u.avatar
+        FROM user u
+        WHERE
+        u.state = 1
+        <if test="search != null and search.account != null and search.account != ''">
+            AND u.account LIKE concat('%', #{search.account}, '%')
+        </if>
+        <if test="search != null and search.username != null and search.username != ''">
+            AND u.username LIKE concat('%', #{search.username}, '%')
+        </if>
+        <choose>
+            <when test="search != null and search.orderByField != null and search.orderByField != '' ">
+                ORDER BY t.${search.orderByField}
+            </when>
+            <otherwise>
+                ORDER BY u.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

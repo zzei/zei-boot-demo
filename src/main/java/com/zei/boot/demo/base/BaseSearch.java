@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 2019-11-22 11:53
  */
 @Data
-abstract class BaseSearch implements Serializable {
+public abstract class BaseSearch implements Serializable {
 
     private static final long serialVersionUID = 9168956486844632916L;
 
